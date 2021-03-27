@@ -9,11 +9,13 @@
 
 .dialogItems .active {
   color: gold;
-  background-color: crimson;
+  /* background-color: crimson; */
+  text-shadow: 1px 1px 1px black;
 }
 
 .dialog a {
   text-decoration: none;
+  color: white;
 }
 
 .messages {
@@ -21,4 +23,6 @@
 }
 
 .messages .message {
+  color: aqua;
+  text-shadow: 1px 1px 7px black;
 }

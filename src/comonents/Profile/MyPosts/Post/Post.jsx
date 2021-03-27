@@ -1,16 +1,15 @@
-import s from './Post.module.css'
+import s from "./Post.module.css";
 
 const Post = (props) => {
-  
-  return (      
+  return (
     <div className={s.item}>
-      <img src='https://lwlies.com/wp-content/uploads/2017/04/avatar-2009.jpg' />
+      <img src="https://lwlies.com/wp-content/uploads/2017/04/avatar-2009.jpg" />
       {props.message}
       <div>
-        <span>like</span>
+        <span>like</span> <span>{props.likesCount}</span>
       </div>
     </div>
-    )
-}
+  );
+};
 
-export default Post
+export default Post;
