@@ -9,15 +9,24 @@ import Setting from "./comonents/Setting/Setting";
 import { Route } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 
-const App = () => {
+const App = (props) => {
+  // обертки для проброса пропсов из индекс.жс  для диалогов
+  const wrapperDialogs = () => {
+    return <Dialogs {...props} />;
+  };
+
+  const wrapperProfile = () => {
+    return <Profile {...props} />;
+  };
+
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <NavBar />
         <div className="app-wrapper-content">
-          <Route path="/profile" component={Profile} />
-          <Route path="/dialog" component={Dialogs} />
+          <Route path="/profile" component={wrapperProfile} />
+          <Route path="/dialog" component={wrapperDialogs} />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
           <Route path="/setting" component={Setting} />
