@@ -1,19 +1,27 @@
-import s from './MyPosts.module.css'
-import Post from './Post/Post'
+import s from "./MyPosts.module.css";
+import Post from "./Post/Post";
 
 const MyPosts = () => {
-  
-    return (       
+  return (
+    <div className={s.posts__Block}>
+      my posts
+      <div>
         <div>
-            my posts
-            <div >New post</div>
-          <Post message='Hi, how are you?'/>
-          <Post message="It's my first post!"/>
-          <Post />
-          <Post />
-          <Post/>
-        </div>       
-    )
-}
+          <textarea></textarea>
+        </div>
+        <div>
+          <button>Add post</button>
+        </div>
+      </div>
+      <div className={s.posts}>
+        <Post message="Hi, how are you?" />
+        <Post message="It's my first post!" />
+        <Post />
+        <Post />
+        <Post />
+      </div>
+    </div>
+  );
+};
 
-export default MyPosts
+export default MyPosts;
