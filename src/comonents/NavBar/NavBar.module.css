@@ -12,3 +12,15 @@
 .item a.active {
   color: gold;
 }
+
+.friends {
+  margin-top: 40px;
+
+  font-size: 1.5rem;
+}
+
+.friedsItems {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-around;
+}

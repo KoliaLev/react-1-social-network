@@ -23,6 +23,20 @@
 }
 
 .messages .message {
+  display: flex;
   color: aqua;
   text-shadow: 1px 1px 7px black;
+  padding: 2px;
+}
+
+.message img {
+  width: 20px;
+  margin-right: 5px;
+}
+
+.message div {
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: rgb(115, 115, 199);
+  padding: 0 5px 0px 5px;
 }

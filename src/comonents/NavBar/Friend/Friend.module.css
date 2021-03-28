@@ -1,0 +1,14 @@
+/* .friend {
+  margin-right: 10px;
+} */
+
+.friend img {
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+}
+
+.friend div {
+  width: 30px;
+  font-size: 1vw;
+}
