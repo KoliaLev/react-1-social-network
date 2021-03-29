@@ -7,11 +7,19 @@ let state = {
   },
   dialogsPage: {
     dialogs: [
-      { id: 1, name: "Max" },
-      { id: 2, name: "Anna" },
-      { id: 3, name: "Helen" },
-      { id: 4, name: "Neo" },
-      { id: 5, name: "Morfeus" },
+      { id: 1, name: "Max", ava: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg" },
+      {
+        id: 2,
+        name: "Anna",
+        ava: "https://www.meme-arsenal.com/memes/7d1e30bf0401d9916e7daf4ac09865d8.jpg",
+      },
+      {
+        id: 3,
+        name: "Helen",
+        ava: "https://www.meme-arsenal.com/memes/f879015643fc2ac160fbfe7a3bbe23cd.jpg",
+      },
+      { id: 4, name: "Neo", ava: "https://i.redd.it/6qlicimybejy.jpg" },
+      { id: 5, name: "Morfeus", ava: "https://i.redd.it/lmwdwki1rfg21.jpg" },
     ],
 
     messages: [

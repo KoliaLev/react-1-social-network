@@ -9,14 +9,37 @@
 
 .dialogItems .active {
   color: gold;
+  background-color: rgb(132, 132, 190);
   /* background-color: crimson; */
   text-shadow: 1px 1px 1px black;
+  box-shadow: 0px 0px 5px black;
+  height: 40px;
+}
+
+.dialog {
+  height: 50px;
 }
 
 .dialog a {
   text-decoration: none;
   color: white;
+  display: flex;
+
+  border-radius: 15px;
 }
+
+.dialog a img {
+  width: 40px;
+  height: 40px;
+  border-radius: 15px;
+}
+
+.dialog a div {
+  line-height: 40px;
+  margin-left: 3px;
+}
+
+/* MESSAGES */
 
 .messages {
   padding: 10px;
