@@ -1,9 +1,12 @@
+import { renderEntireTree } from "../render";
+
 let state = {
   profilePage: {
     posts: [
       { id: 1, message: "Hi, how are you?", likesCount: 23 },
       { id: 2, message: "It's my first post!", likesCount: 0 },
     ],
+    postWait: "waiting for post",
   },
   dialogsPage: {
     dialogs: [
@@ -29,6 +32,7 @@ let state = {
       { id: 4, message: "I`m fine" },
       { id: 5, message: "I`m fine" },
     ],
+    messageWait: "waiting for new message",
   },
   sidebar: {
     friends: [
@@ -53,22 +57,34 @@ let state = {
   },
 };
 
-export let addPost = (postMessage) => {
+export let stateMessage = (mes) => {
+  state.dialogsPage.messageWait = mes;
+
+  renderEntireTree(state);
+};
+export let statePost = (post) => {
+  state.profilePage.postWait = post;
+
+  renderEntireTree(state);
+};
+
+export let addPost = () => {
   let post = {
     id: 5,
-    message: postMessage,
+    message: state.profilePage.postWait,
     likesCount: 0,
   };
   state.profilePage.posts.push(post);
+  renderEntireTree(state);
 };
 
-export let sendMessage = (newMessage) => {
-  debugger;
+export let sendMessage = () => {
   let message = {
     id: 6,
-    message: newMessage,
+    message: state.dialogsPage.messageWait,
   };
   state.dialogsPage.messages.push(message);
+  renderEntireTree(state);
 };
 
 export default state;
