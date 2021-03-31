@@ -13,7 +13,6 @@ const Dialogs = (props) => {
 
   let sendMessage = () => {
     props.sendMessage();
-    props.stateMessage("");
   };
 
   let stateMessage = () => {

@@ -1,4 +1,8 @@
-import { renderEntireTree } from "../render";
+let renderEntireTree = () => {};
+
+export const subscribe = (observer) => {
+  renderEntireTree = observer;
+};
 
 let state = {
   profilePage: {
@@ -57,11 +61,6 @@ let state = {
   },
 };
 
-export let stateMessage = (mes) => {
-  state.dialogsPage.messageWait = mes;
-
-  renderEntireTree(state);
-};
 export let statePost = (post) => {
   state.profilePage.postWait = post;
 
@@ -75,6 +74,13 @@ export let addPost = () => {
     likesCount: 0,
   };
   state.profilePage.posts.push(post);
+  state.profilePage.postWait = "";
+  renderEntireTree(state);
+};
+
+export let stateMessage = (mes) => {
+  state.dialogsPage.messageWait = mes;
+
   renderEntireTree(state);
 };
 
@@ -84,6 +90,7 @@ export let sendMessage = () => {
     message: state.dialogsPage.messageWait,
   };
   state.dialogsPage.messages.push(message);
+  state.dialogsPage.messageWait = "";
   renderEntireTree(state);
 };
 
