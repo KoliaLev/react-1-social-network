@@ -4,20 +4,22 @@ import s from "./Dialogs.module.css";
 import React from "react";
 
 const Dialogs = (props) => {
-  let dialogsElements = props.dialogsPage.dialogs.map((d) => (
-    <DialogItem name={d.name} id={d.id} ava={d.ava} />
-  ));
-  let messagesElements = props.dialogsPage.messages.map((m) => <Message message={m.message} />);
+  let dialogsElements = props.store
+    .getState()
+    .dialogsPage.dialogs.map((d) => <DialogItem name={d.name} id={d.id} ava={d.ava} />);
+  let messagesElements = props.store
+    .getState()
+    .dialogsPage.messages.map((m) => <Message message={m.message} />);
 
   let newMessageElement = React.createRef();
 
   let sendMessage = () => {
-    props.sendMessage();
+    props.store.sendMessage();
   };
 
   let stateMessage = () => {
     let text = newMessageElement.current.value;
-    props.stateMessage(text);
+    props.store.stateMessage(text);
   };
 
   return (
@@ -29,7 +31,7 @@ const Dialogs = (props) => {
           <div>
             <textarea
               ref={newMessageElement}
-              value={props.dialogsPage.messageWait}
+              value={props.store.getState().dialogsPage.messageWait}
               onChange={stateMessage}
             />
           </div>

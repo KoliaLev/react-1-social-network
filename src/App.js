@@ -12,15 +12,16 @@ const App = (props) => {
   return (
     <div className="app-wrapper">
       <Header />
-      <NavBar state={props.state.sidebar} />
+      <NavBar state={props.store.getState().sidebar} />
       <div className="app-wrapper-content">
         <Route
           path="/profile"
           render={() => (
             <Profile
-              profilePage={props.state.profilePage}
-              addPost={props.addPost}
-              statePost={props.statePost}
+              store={props.store}
+              // profilePage={props.state.profilePage}
+              // addPost={props.addPost}
+              // statePost={props.statePost}
             />
           )}
         />
@@ -28,9 +29,10 @@ const App = (props) => {
           path="/dialog"
           render={() => (
             <Dialogs
-              dialogsPage={props.state.dialogsPage}
-              sendMessage={props.sendMessage}
-              stateMessage={props.stateMessage}
+              store={props.store}
+              // dialogsPage={props.state.dialogsPage}
+              // sendMessage={props.sendMessage}
+              // stateMessage={props.stateMessage}
             />
           )}
         />
