@@ -74,35 +74,34 @@ let store = {
     return this._state;
   },
 
-  statePost(post) {
-    this._state.profilePage.postWait = post;
-    this._subscriber(this);
-  },
-
-  addPost() {
-    let post = {
-      id: 5,
-      message: this._state.profilePage.postWait,
-      likesCount: 0,
-    };
-    this._state.profilePage.posts.push(post);
-    this._state.profilePage.postWait = "";
-    this._subscriber(this);
-  },
-
-  stateMessage(mes) {
-    this._state.dialogsPage.messageWait = mes;
-    this._subscriber(this);
-  },
-
-  sendMessage() {
-    let message = {
-      id: 6,
-      message: this._state.dialogsPage.messageWait,
-    };
-    this._state.dialogsPage.messages.push(message);
-    this._state.dialogsPage.messageWait = "";
-    this._subscriber(this);
+  dispatch(action) {
+    debugger;
+    // { type : 'ADD-POST'}
+    if (action.type === "ADD-POST") {
+      let post = {
+        id: 5,
+        message: this._state.profilePage.postWait,
+        likesCount: 0,
+      };
+      this._state.profilePage.posts.push(post);
+      this._state.profilePage.postWait = "";
+      this._subscriber(this.getState());
+    } else if (action.type === "STATE-POST") {
+      //todo
+      this._state.profilePage.postWait = action.post;
+      this._subscriber(this.getState());
+    } else if (action.type === "STATE-MESSAGE") {
+      this._state.dialogsPage.messageWait = action.mes;
+      this._subscriber(this.getState());
+    } else if (action.type === "SEND-MESSAGE") {
+      let message = {
+        id: 6,
+        message: this._state.dialogsPage.messageWait,
+      };
+      this._state.dialogsPage.messages.push(message);
+      this._state.dialogsPage.messageWait = "";
+      this._subscriber(this.getState());
+    }
   },
 };
 
