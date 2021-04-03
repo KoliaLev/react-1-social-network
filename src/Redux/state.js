@@ -2,11 +2,6 @@ import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reduecr";
 import sidebarReducer from "./sidebar-reducer";
 
-const ADD_POST = "ADD-POST";
-const STATE_POST = "STATE-POST";
-const SEND_MESSAGE = "SEND-MESSAGE";
-const STATE_MESSAGE = "STATE-MESSAGE";
-
 let store = {
   _subscriber() {
     console.log("do not have subscriber");
@@ -87,11 +82,5 @@ let store = {
     this._subscriber(this._state);
   },
 };
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const statePostActionCreator = (text) => ({ type: STATE_POST, text: text });
-
-export const sandMessageActionCreator = () => ({ type: SEND_MESSAGE });
-export const stateMessageActionCreator = (text) => ({ type: STATE_MESSAGE, mes: text });
 
 export default store;
