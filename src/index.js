@@ -4,7 +4,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import store, { addPost, sendMessage, stateMessage, statePost, subscribe } from "./Redux/state";
+import store from "./Redux/redux-store";
 
 export let renderEntireTree = (state) => {
   ReactDOM.render(
@@ -24,7 +24,9 @@ export let renderEntireTree = (state) => {
   );
 };
 
-store.subscribe(renderEntireTree);
+store.subscribe(() => {
+  renderEntireTree(store.getState());
+});
 renderEntireTree(store.getState());
 
 // If you want to start measuring performance in your app, pass a function
