@@ -2,25 +2,25 @@ import "./App.css";
 import Header from "./comonents/Header/Header";
 import NavBar from "./comonents/NavBar/NavBar";
 import Profile from "./comonents/Profile/Profile";
-import Dialogs from "./comonents/Dialogs/Dialogs";
 import News from "./comonents/News/News";
 import Music from "./comonents/Music/Music";
 import Setting from "./comonents/Setting/Setting";
 import { Route } from "react-router";
+import DialogsContainer from "./comonents/Dialogs/DialogsContainer";
 
 const App = (props) => {
   return (
     <div className="app-wrapper">
       <Header />
-      <NavBar sidebar={props.state.sidebar} />
+      <NavBar sidebar={props.store.getState().sidebar} />
       <div className="app-wrapper-content">
         <Route
           path="/profile"
           render={() => (
             <Profile
-              state={props.state}
+              store={props.store}
               // profilePage={props.state.profilePage}
-              dispatch={props.dispatch}
+              // dispatch={props.dispatch}
               // statePost={props.statePost}
             />
           )}
@@ -28,9 +28,10 @@ const App = (props) => {
         <Route
           path="/dialog"
           render={() => (
-            <Dialogs
-              state={props.state}
-              dispatch={props.dispatch}
+            <DialogsContainer
+              store={props.store}
+              // state={props.state}
+              // dispatch={props.dispatch}
               // dialogsPage={props.state.dialogsPage}
               // sendMessage={props.sendMessage}
               // stateMessage={props.stateMessage}

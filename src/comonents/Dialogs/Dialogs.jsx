@@ -2,25 +2,22 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
 import React from "react";
-import { sandMessageActionCreator, stateMessageActionCreator } from "../../Redux/dialogs-reducer";
 
 const Dialogs = (props) => {
-  let dialogsElements = props.state.dialogsPage.dialogs.map((d) => (
+  let dialogsElements = props.dialogs.map((d) => (
     <DialogItem name={d.name} id={d.id} ava={d.ava} />
   ));
-  let messagesElements = props.state.dialogsPage.messages.map((m) => (
-    <Message message={m.message} />
-  ));
+  let messagesElements = props.messages.map((m) => <Message message={m.message} />);
 
   let newMessageElement = React.createRef();
 
-  let sendMessage = () => {
-    props.dispatch(sandMessageActionCreator());
+  let onSendMessage = () => {
+    props.sendMessage();
   };
 
-  let stateMessage = () => {
+  let onStateMessage = () => {
     let text = newMessageElement.current.value;
-    props.dispatch(stateMessageActionCreator(text));
+    props.stateMessage(text);
   };
 
   return (
@@ -30,14 +27,10 @@ const Dialogs = (props) => {
         {messagesElements}
         <div>
           <div>
-            <textarea
-              ref={newMessageElement}
-              value={props.state.dialogsPage.messageWait}
-              onChange={stateMessage}
-            />
+            <textarea ref={newMessageElement} value={props.messageWait} onChange={onStateMessage} />
           </div>
           <div>
-            <button onClick={sendMessage}>Send Message</button>
+            <button onClick={onSendMessage}>Send Message</button>
           </div>
         </div>
       </div>

@@ -11,9 +11,11 @@ export let renderEntireTree = (state) => {
     <React.StrictMode>
       <BrowserRouter>
         <App
-          state={state}
+          store={store}
           // state={state}
-          dispatch={store.dispatch.bind(store)}
+          // dispatch={store.dispatch.bind(store)}
+
+          // state={state}
           // statePost={statePost}
           // sendMessage={sendMessage}
           // stateMessage={stateMessage}
