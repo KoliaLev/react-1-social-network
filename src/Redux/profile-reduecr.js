@@ -17,16 +17,17 @@ const profileReducer = (state = initialState, action) => {
         message: state.postWait,
         likesCount: 0,
       };
-      let stateCopy = { ...state };
-      stateCopy.posts = [...state.posts];
-      stateCopy.posts.push(post);
-      stateCopy.postWait = "";
-      return stateCopy;
+      return {
+        ...state,
+        posts: [...state.posts, post],
+        postWait: "",
+      };
     }
     case STATE_POST: {
-      let stateCopy = { ...state };
-      stateCopy.postWait = action.text;
-      return stateCopy;
+      return {
+        ...state,
+        postWait: action.text,
+      };
     }
     default:
       return state;
