@@ -8,21 +8,21 @@ import store from "./Redux/redux-store";
 import { Provider } from "react-redux";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App
-        // store={store}
-        // state={state}
-        // dispatch={store.dispatch.bind(store)}
-        // state={state}
-        // statePost={statePost}
-        // sendMessage={sendMessage}
-        // stateMessage={stateMessage}
-        />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App
+      // store={store}
+      // state={state}
+      // dispatch={store.dispatch.bind(store)}
+      // state={state}
+      // statePost={statePost}
+      // sendMessage={sendMessage}
+      // stateMessage={stateMessage}
+      />
+    </Provider>
+  </BrowserRouter>,
+  // </React.StrictMode>
   document.getElementById("root")
 );
 

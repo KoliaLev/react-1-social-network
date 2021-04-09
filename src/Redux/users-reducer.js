@@ -40,7 +40,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         users: state.users.map((u) => {
           if (u.id === action.userId) {
-            return { ...u, isFriend: !u.isFriend };
+            return { ...u, followed: !u.followed };
           }
           return u;
         }), // проходимся по масиву и изменяем значение isFriend на противоположное если id совпадает
