@@ -7,7 +7,7 @@ const initialState = {
   users: [],
   usersCount: 10, // количество людей которое отображается
   totalUsersCount: 0,
-  currentPage: 2,
+  currentPage: 1,
 };
 
 const usersReducer = (state = initialState, action) => {
