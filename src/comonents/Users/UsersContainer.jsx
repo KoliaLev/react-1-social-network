@@ -5,9 +5,11 @@ import {
   setTotalUsersAC,
   setUsersAC,
   togleFollowAC,
+  togleIsFetchAC,
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import * as axios from "axios";
+import Preloader1 from "../common/preloaders/Preloader1";
 
 class UsersComponent extends React.Component {
   constructor(props) {
@@ -16,11 +18,13 @@ class UsersComponent extends React.Component {
   }
 
   componentDidMount() {
+    this.props.togleIsFetch(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersCount}`
       )
       .then((response) => {
+        this.props.togleIsFetch(false);
         this.props.setUsers(response.data.items);
         this.props.setTotalUsers(response.data.totalCount);
       });
@@ -28,12 +32,13 @@ class UsersComponent extends React.Component {
 
   onPageChange = (page) => {
     this.props.setCurrentPage(page);
-
+    this.props.togleIsFetch(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersCount}`
       )
       .then((response) => {
+        this.props.togleIsFetch(false);
         this.props.setUsers(response.data.items);
         this.props.setTotalUsers(response.data.totalCount);
       });
@@ -41,14 +46,20 @@ class UsersComponent extends React.Component {
 
   render() {
     return (
-      <Users
-        totalUsersCount={this.props.totalUsersCount}
-        usersCount={this.props.usersCount}
-        currentPage={this.props.currentPage}
-        onPageChange={this.onPageChange}
-        users={this.props.users}
-        toggleFollow={this.props.toggleFollow}
-      />
+      <div>
+        {this.props.isFetching ? (
+          <Preloader1 />
+        ) : (
+          <Users
+            totalUsersCount={this.props.totalUsersCount}
+            usersCount={this.props.usersCount}
+            currentPage={this.props.currentPage}
+            onPageChange={this.onPageChange}
+            users={this.props.users}
+            toggleFollow={this.props.toggleFollow}
+          />
+        )}
+      </div>
     );
   }
 }
@@ -59,6 +70,7 @@ const mapStateToProps = (state) => {
     usersCount: state.usersPage.usersCount,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetch,
   };
 };
 
@@ -68,6 +80,7 @@ const mapDispatchToProps = (dispatch) => {
     setUsers: (users) => dispatch(setUsersAC(users)),
     setTotalUsers: (totalUsers) => dispatch(setTotalUsersAC(totalUsers)),
     setCurrentPage: (page) => dispatch(setCurrentPageAC(page)),
+    togleIsFetch: (isFetch) => dispatch(togleIsFetchAC(isFetch)),
   };
 };
 
