@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  setCurrentPageAC,
-  setTotalUsersAC,
-  setUsersAC,
-  togleFollowAC,
-  togleIsFetchAC,
+  setCurrentPage,
+  setTotalUsers,
+  setUsers,
+  togleFollow,
+  togleIsFetch,
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import * as axios from "axios";
@@ -47,18 +47,15 @@ class UsersComponent extends React.Component {
   render() {
     return (
       <div>
-        {this.props.isFetching ? (
-          <Preloader1 />
-        ) : (
-          <Users
-            totalUsersCount={this.props.totalUsersCount}
-            usersCount={this.props.usersCount}
-            currentPage={this.props.currentPage}
-            onPageChange={this.onPageChange}
-            users={this.props.users}
-            toggleFollow={this.props.toggleFollow}
-          />
-        )}
+        {this.props.isFetching ? <Preloader1 /> : null}
+        <Users
+          totalUsersCount={this.props.totalUsersCount}
+          usersCount={this.props.usersCount}
+          currentPage={this.props.currentPage}
+          onPageChange={this.onPageChange}
+          users={this.props.users}
+          togleFollow={this.props.togleFollow}
+        />
       </div>
     );
   }
@@ -74,16 +71,23 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleFollow: (userId) => dispatch(togleFollowAC(userId)),
-    setUsers: (users) => dispatch(setUsersAC(users)),
-    setTotalUsers: (totalUsers) => dispatch(setTotalUsersAC(totalUsers)),
-    setCurrentPage: (page) => dispatch(setCurrentPageAC(page)),
-    togleIsFetch: (isFetch) => dispatch(togleIsFetchAC(isFetch)),
-  };
-};
+// ----  Передаем в connect в место mapDispatchToProps обьект с колбеками(кприаторами) - connect сам и диспачит
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     toggleFollow: (userId) => dispatch(togleFollowAC(userId)),
+//     setUsers: (users) => dispatch(setUsersAC(users)),
+//     setTotalUsers: (totalUsers) => dispatch(setTotalUsersAC(totalUsers)),
+//     setCurrentPage: (page) => dispatch(setCurrentPageAC(page)),
+//     togleIsFetch: (isFetch) => dispatch(togleIsFetchAC(isFetch)),
+//   };
+// };
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersComponent);
+const UsersContainer = connect(mapStateToProps, {
+  togleFollow,
+  setUsers,
+  setTotalUsers,
+  setCurrentPage,
+  togleIsFetch,
+})(UsersComponent);
 
 export default UsersContainer;

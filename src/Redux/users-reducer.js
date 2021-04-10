@@ -50,10 +50,10 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const togleFollowAC = (userId) => ({ type: TOGLE_FOLLOW, userId });
-export const setUsersAC = (users) => ({ type: SET_USERS, users });
-export const setTotalUsersAC = (totalUsers) => ({ type: SET_TOTAL_USERS, totalUsers });
-export const setCurrentPageAC = (page) => ({ type: SET_CURRENT_PAGE, currentPage: page });
-export const togleIsFetchAC = (isFetch) => ({ type: TOGLE_IS_FETCH, isFetch });
+export const togleFollow = (userId) => ({ type: TOGLE_FOLLOW, userId });
+export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setTotalUsers = (totalUsers) => ({ type: SET_TOTAL_USERS, totalUsers });
+export const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, currentPage: page });
+export const togleIsFetch = (isFetch) => ({ type: TOGLE_IS_FETCH, isFetch });
 
 export default usersReducer;

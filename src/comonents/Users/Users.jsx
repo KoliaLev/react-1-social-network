@@ -38,7 +38,7 @@ let Users = (props) => {
             <div>{"u.location.country"}</div>
             <button
               onClick={() => {
-                props.toggleFollow(u.id);
+                props.togleFollow(u.id);
               }}>
               {u.followed ? "unfollow" : "follow"}
             </button>
