@@ -19,6 +19,7 @@ const ProfileInfo = (props) => {
         <div>Full name: {props.userProfile.fullName} </div>
         <div>Looking for a job: {props.userProfile.lookingForAJob ? "Yes" : "No"} </div>
         <div>Description: {props.userProfile.lookingForAJobDescription}</div>
+        <hr />
         <div>
           contacts:
           <ul>
