@@ -1,5 +1,6 @@
 const ADD_POST = "ADD-POST";
 const STATE_POST = "STATE-POST";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 const initialState = {
   posts: [
@@ -7,6 +8,8 @@ const initialState = {
     { id: 2, message: "It's my first post!", likesCount: 0 },
   ],
   postWait: "waiting for post",
+  userProfile: null,
+  // isFetch: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -29,6 +32,12 @@ const profileReducer = (state = initialState, action) => {
         postWait: action.text,
       };
     }
+    case SET_USER_PROFILE: {
+      return {
+        ...state,
+        userProfile: action.newUser,
+      };
+    }
     default:
       return state;
   }
@@ -36,5 +45,6 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = () => ({ type: ADD_POST });
 export const statePostActionCreator = (text) => ({ type: STATE_POST, text: text });
+export const setUserProfile = (user) => ({ type: SET_USER_PROFILE, newUser: user });
 
 export default profileReducer;
