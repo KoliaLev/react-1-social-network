@@ -16,6 +16,7 @@ let Users = (props) => {
   return (
     <div>
       <div>
+        <div>pages count: {pagesCount}</div>
         {pages.map((p) => {
           return (
             <span
