@@ -7,3 +7,10 @@
   grid-area: h;
   background-color: green;
 }
+
+.login__Block {
+  float: right;
+}
+.login__Block a {
+  color: white;
+}
