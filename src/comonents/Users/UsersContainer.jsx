@@ -50,6 +50,41 @@ class UsersComponent extends React.Component {
       });
   };
 
+  followUnfollow = (u) => {
+    if (u.followed) {
+      axios
+        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+          withCredentials: true,
+          headers: {
+            "API-KEY": "b26f5f83-f436-46d2-9f60-37fe761c495f",
+          },
+        })
+        .then((response) => {
+          if (response.data.resultCode === 0) {
+            this.props.togleFollow(u.id);
+          }
+        });
+    } else {
+      axios
+        .post(
+          `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+          {},
+          {
+            withCredentials: true,
+            headers: {
+              "API-KEY": "b26f5f83-f436-46d2-9f60-37fe761c495f",
+            },
+          }
+        )
+        .then((response) => {
+          if (response.data.resultCode === 0) {
+            debugger;
+            this.props.togleFollow(u.id);
+          }
+        });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -59,6 +94,7 @@ class UsersComponent extends React.Component {
           usersCount={this.props.usersCount}
           currentPage={this.props.currentPage}
           onPageChange={this.onPageChange}
+          followUnfollow={this.followUnfollow}
           users={this.props.users}
           togleFollow={this.props.togleFollow}
         />
