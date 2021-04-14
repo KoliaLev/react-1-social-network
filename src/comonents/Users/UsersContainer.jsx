@@ -8,8 +8,8 @@ import {
   togleIsFetch,
 } from "../../Redux/users-reducer";
 import Users from "./Users";
-import * as axios from "axios";
 import Preloader1 from "../common/preloaders/Preloader1";
+import { usersAPI } from "../../api/api";
 
 class UsersComponent extends React.Component {
   constructor(props) {
@@ -19,69 +19,37 @@ class UsersComponent extends React.Component {
 
   componentDidMount() {
     this.props.togleIsFetch(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersCount}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.togleIsFetch(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsers(response.data.totalCount);
-      });
+    usersAPI.getUsers(this.props.currentPage, this.props.usersCount).then((data) => {
+      debugger;
+      this.props.togleIsFetch(false);
+      this.props.setUsers(data.items);
+      this.props.setTotalUsers(data.totalCount);
+    });
   }
 
   onPageChange = (page) => {
     this.props.setCurrentPage(page);
     this.props.togleIsFetch(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersCount}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.togleIsFetch(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsers(response.data.totalCount);
-      });
+    usersAPI.getUsers(page, this.props.usersCount).then((data) => {
+      this.props.togleIsFetch(false);
+      this.props.setUsers(data.items);
+      this.props.setTotalUsers(data.totalCount);
+    });
   };
 
   followUnfollow = (u) => {
     if (u.followed) {
-      axios
-        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-          withCredentials: true,
-          headers: {
-            "API-KEY": "b26f5f83-f436-46d2-9f60-37fe761c495f",
-          },
-        })
-        .then((response) => {
-          if (response.data.resultCode === 0) {
-            this.props.togleFollow(u.id);
-          }
-        });
+      usersAPI.deleteFollow(u.id).then((response) => {
+        if (response.resultCode === 0) {
+          this.props.togleFollow(u.id);
+        }
+      });
     } else {
-      axios
-        .post(
-          `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-          {},
-          {
-            withCredentials: true,
-            headers: {
-              "API-KEY": "b26f5f83-f436-46d2-9f60-37fe761c495f",
-            },
-          }
-        )
-        .then((response) => {
-          if (response.data.resultCode === 0) {
-            debugger;
-            this.props.togleFollow(u.id);
-          }
-        });
+      usersAPI.postFollow(u.id).then((response) => {
+        if (response.resultCode === 0) {
+          this.props.togleFollow(u.id);
+        }
+      });
     }
   };
 
