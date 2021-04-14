@@ -10,6 +10,8 @@
 
 .login__Block {
   float: right;
+  margin-right: 20px;
+  margin-top: 10px;
 }
 .login__Block a {
   color: white;

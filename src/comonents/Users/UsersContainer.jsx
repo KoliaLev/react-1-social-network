@@ -21,7 +21,10 @@ class UsersComponent extends React.Component {
     this.props.togleIsFetch(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersCount}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersCount}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.togleIsFetch(false);
@@ -35,7 +38,10 @@ class UsersComponent extends React.Component {
     this.props.togleIsFetch(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersCount}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersCount}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.togleIsFetch(false);
