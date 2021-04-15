@@ -6,6 +6,7 @@ import {
   setUsers,
   togleFollow,
   togleIsFetch,
+  isFetchFollowUserCreator,
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import Preloader1 from "../common/preloaders/Preloader1";
@@ -20,7 +21,6 @@ class UsersComponent extends React.Component {
   componentDidMount() {
     this.props.togleIsFetch(true);
     usersAPI.getUsers(this.props.currentPage, this.props.usersCount).then((data) => {
-      debugger;
       this.props.togleIsFetch(false);
       this.props.setUsers(data.items);
       this.props.setTotalUsers(data.totalCount);
@@ -38,16 +38,19 @@ class UsersComponent extends React.Component {
   };
 
   followUnfollow = (u) => {
+    this.props.isFetchFollowUserCreator(true, u.id);
     if (u.followed) {
       usersAPI.deleteFollow(u.id).then((response) => {
         if (response.resultCode === 0) {
           this.props.togleFollow(u.id);
+          this.props.isFetchFollowUserCreator(false, u.id);
         }
       });
     } else {
       usersAPI.postFollow(u.id).then((response) => {
         if (response.resultCode === 0) {
           this.props.togleFollow(u.id);
+          this.props.isFetchFollowUserCreator(false, u.id);
         }
       });
     }
@@ -65,6 +68,7 @@ class UsersComponent extends React.Component {
           followUnfollow={this.followUnfollow}
           users={this.props.users}
           togleFollow={this.props.togleFollow}
+          isFetchFollowUser={this.props.isFetchFollowUser}
         />
       </div>
     );
@@ -78,6 +82,7 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetch,
+    isFetchFollowUser: state.usersPage.isFetchFollowUser,
   };
 };
 
@@ -98,6 +103,7 @@ const UsersContainer = connect(mapStateToProps, {
   setTotalUsers,
   setCurrentPage,
   togleIsFetch,
+  isFetchFollowUserCreator,
 })(UsersComponent);
 
 export default UsersContainer;

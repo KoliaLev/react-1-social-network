@@ -65,6 +65,7 @@ let Users = (props) => {
             <div>{"u.location.city"}</div>
             <div>{"u.location.country"}</div>
             <button
+              disabled={props.isFetchFollowUser.some((el) => el === u.id)}
               onClick={() => {
                 props.followUnfollow(u);
               }}>

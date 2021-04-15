@@ -3,6 +3,7 @@ const SET_USERS = "SET-USERS";
 const SET_TOTAL_USERS = "SET_TOTAL_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const TOGLE_IS_FETCH = "TOGLE_IS_FETCH";
+const IS_FETCH_FOLLOW_USER = "IS_FETCH_FOLLOW_USER";
 
 const initialState = {
   users: [],
@@ -10,6 +11,7 @@ const initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetch: false,
+  isFetchFollowUser: [16534],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -44,6 +46,13 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         isFetch: action.isFetch,
       };
+    case IS_FETCH_FOLLOW_USER:
+      return {
+        ...state,
+        isFetchFollowUser: action.isFetch
+          ? [...state.isFetchFollowUser, action.id]
+          : state.isFetchFollowUser.filter((el) => el != action.id),
+      };
 
     default:
       return state;
@@ -55,5 +64,10 @@ export const setUsers = (users) => ({ type: SET_USERS, users });
 export const setTotalUsers = (totalUsers) => ({ type: SET_TOTAL_USERS, totalUsers });
 export const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, currentPage: page });
 export const togleIsFetch = (isFetch) => ({ type: TOGLE_IS_FETCH, isFetch });
+export const isFetchFollowUserCreator = (isFetch, id) => ({
+  type: IS_FETCH_FOLLOW_USER,
+  isFetch,
+  id,
+});
 
 export default usersReducer;
