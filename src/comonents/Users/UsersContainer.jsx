@@ -1,16 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  setCurrentPage,
-  setTotalUsers,
-  setUsers,
-  togleFollow,
-  togleIsFetch,
-  isFetchFollowUserCreator,
-} from "../../Redux/users-reducer";
+import { setCurrentPage, getUsers, getFollow } from "../../Redux/users-reducer";
 import Users from "./Users";
 import Preloader1 from "../common/preloaders/Preloader1";
-import { usersAPI } from "../../api/api";
 
 class UsersComponent extends React.Component {
   constructor(props) {
@@ -19,41 +11,16 @@ class UsersComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.togleIsFetch(true);
-    usersAPI.getUsers(this.props.currentPage, this.props.usersCount).then((data) => {
-      this.props.togleIsFetch(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalUsers(data.totalCount);
-    });
+    this.props.getUsers(this.props.currentPage, this.props.usersCount);
   }
 
   onPageChange = (page) => {
     this.props.setCurrentPage(page);
-    this.props.togleIsFetch(true);
-    usersAPI.getUsers(page, this.props.usersCount).then((data) => {
-      this.props.togleIsFetch(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalUsers(data.totalCount);
-    });
+    this.props.getUsers(page, this.props.usersCount);
   };
 
   followUnfollow = (u) => {
-    this.props.isFetchFollowUserCreator(true, u.id);
-    if (u.followed) {
-      usersAPI.deleteFollow(u.id).then((response) => {
-        if (response.resultCode === 0) {
-          this.props.togleFollow(u.id);
-          this.props.isFetchFollowUserCreator(false, u.id);
-        }
-      });
-    } else {
-      usersAPI.postFollow(u.id).then((response) => {
-        if (response.resultCode === 0) {
-          this.props.togleFollow(u.id);
-          this.props.isFetchFollowUserCreator(false, u.id);
-        }
-      });
-    }
+    this.props.getFollow(u);
   };
 
   render() {
@@ -61,14 +28,13 @@ class UsersComponent extends React.Component {
       <div>
         {this.props.isFetching ? <Preloader1 /> : null}
         <Users
-          totalUsersCount={this.props.totalUsersCount}
-          usersCount={this.props.usersCount}
-          currentPage={this.props.currentPage}
-          onPageChange={this.onPageChange}
-          followUnfollow={this.followUnfollow}
           users={this.props.users}
-          togleFollow={this.props.togleFollow}
+          usersCount={this.props.usersCount}
+          totalUsersCount={this.props.totalUsersCount}
+          currentPage={this.props.currentPage}
           isFetchFollowUser={this.props.isFetchFollowUser}
+          followUnfollow={this.followUnfollow}
+          onPageChange={this.onPageChange}
         />
       </div>
     );
@@ -98,12 +64,9 @@ const mapStateToProps = (state) => {
 // };
 
 const UsersContainer = connect(mapStateToProps, {
-  togleFollow,
-  setUsers,
-  setTotalUsers,
   setCurrentPage,
-  togleIsFetch,
-  isFetchFollowUserCreator,
+  getUsers,
+  getFollow,
 })(UsersComponent);
 
 export default UsersContainer;

@@ -20,4 +20,16 @@ export const usersAPI = {
   postFollow(userId) {
     return instance.post(`follow/${userId}`).then((response) => response.data);
   },
+  getOneUser(userId) {
+    if (!userId) {
+      userId = 16478;
+    }
+    return instance.get(`profile/` + userId).then((response) => response.data);
+  },
+};
+
+export const headerAPI = {
+  setAuth() {
+    return instance.get(`auth/me`).then((response) => response.data);
+  },
 };

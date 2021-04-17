@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 const TOGLE_FOLLOW = "TOGLE-FOLLOW";
 const SET_USERS = "SET-USERS";
 const SET_TOTAL_USERS = "SET_TOTAL_USERS";
@@ -11,7 +13,7 @@ const initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetch: false,
-  isFetchFollowUser: [16534],
+  isFetchFollowUser: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -69,5 +71,43 @@ export const isFetchFollowUserCreator = (isFetch, id) => ({
   isFetch,
   id,
 });
+
+export const getUsers = (currentPage, usersCount) => (dispatch) => {
+  dispatch(togleIsFetch(true));
+
+  usersAPI.getUsers(currentPage, usersCount).then((data) => {
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsers(data.totalCount));
+    dispatch(togleIsFetch(false));
+  });
+};
+
+export const getFollow = (user) => (dispatch) => {
+  dispatch(isFetchFollowUserCreator(true, user.id));
+  let request = user.followed ? usersAPI.deleteFollow(user.id) : usersAPI.postFollow(user.id);
+  request.then((response) => {
+    if (response.resultCode === 0) {
+      dispatch(togleFollow(user.id));
+      dispatch(isFetchFollowUserCreator(false, user.id));
+    }
+  });
+
+  // if (user.followed) {
+  //   usersAPI.deleteFollow(user.id).then((response) => {
+  //     if (response.resultCode === 0) {
+  //       dispatch(togleFollow(user.id));
+  //       dispatch(isFetchFollowUserCreator(false, user.id));
+  //     }
+  //   });
+  // } else {
+  //   usersAPI.postFollow(user.id).then((response) => {
+  //     if (response.resultCode === 0) {
+  //       dispatch(togleFollow(user.id));
+  //       dispatch(isFetchFollowUserCreator(false, user.id));
+  //     }
+  //   });
+
+  // }
+};
 
 export default usersReducer;
