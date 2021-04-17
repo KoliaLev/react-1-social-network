@@ -73,6 +73,7 @@ export const isFetchFollowUserCreator = (isFetch, id) => ({
 });
 
 export const getUsers = (currentPage, usersCount) => (dispatch) => {
+  dispatch(setCurrentPage(currentPage));
   dispatch(togleIsFetch(true));
 
   usersAPI.getUsers(currentPage, usersCount).then((data) => {
