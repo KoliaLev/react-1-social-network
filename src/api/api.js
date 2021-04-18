@@ -21,10 +21,23 @@ export const usersAPI = {
     return instance.post(`follow/${userId}`).then((response) => response.data);
   },
   getOneUser(userId) {
+    // вызов перенесен в profileAPI
+    return profileAPI.getOneUser(userId);
+  },
+};
+
+export const profileAPI = {
+  getOneUser(userId) {
     if (!userId) {
       userId = 16478;
     }
     return instance.get(`profile/` + userId).then((response) => response.data);
+  },
+  updateStatus(newStatus) {
+    return instance.put(`profile/status`, { status: newStatus });
+  },
+  getStatus(userId) {
+    return instance.get(`profile/status/` + userId).then((response) => response.data);
   },
 };
 
